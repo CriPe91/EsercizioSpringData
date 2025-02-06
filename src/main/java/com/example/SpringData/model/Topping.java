@@ -1,21 +1,17 @@
 package com.example.SpringData.model;
 
-import jakarta.persistence.*;
-import jakarta.persistence.Table;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity
-
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Entity
+@DiscriminatorValue("topping")
 public class Topping extends Article {
-
-    @ManyToOne
-    @JoinColumn(name = "pizza_id")
-    private Pizza pizza;
 
     private String name;
 
@@ -23,5 +19,4 @@ public class Topping extends Article {
         super(calories, price);
         this.name = name;
     }
-
 }

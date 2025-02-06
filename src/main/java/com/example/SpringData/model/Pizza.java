@@ -1,45 +1,35 @@
 package com.example.SpringData.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
-@Entity
-
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Entity
+@DiscriminatorValue("pizza")
 public class Pizza extends Article {
 
     private String name;
-    @OneToMany(mappedBy = "pizza")
-    private List<Topping> toppingList;
-
-    public Pizza(int calories, double price, String name) {
-        super(calories, price);
-        this.name = name;
-        this.toppingList = new ArrayList<Topping>();
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "topping_pizza",
+            joinColumns = @JoinColumn(name = "pazza_id"),
+            inverseJoinColumns = @JoinColumn(name = "topping_id")
+    )
+    private List<Topping> toppingList = new ArrayList<Topping>();
 
     public void addTopping(Topping t) {
         this.toppingList.add(t);
     }
 
-    @Override
-    public String toString() {
-        return "Pizza{" +
-                "name='" + name +
-                ", toppingList=" + toppingList +
-                ", calories=" + calories +
-                ", price=" + price +
-                '}';
+    public Pizza(int calories, double price, String name) {
+        super(calories, price);
+        this.name = name;
     }
-
 }

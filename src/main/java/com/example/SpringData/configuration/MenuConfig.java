@@ -5,8 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-
-
 @Configuration
 public class MenuConfig {
 
@@ -28,17 +26,17 @@ public class MenuConfig {
     @Bean(name = "pizza_margherita")
     public Pizza pizzaMargheritaBean() {
         Pizza p = new Pizza(1104, 4.99, "Pizza Margherita");
-        p.addTopping(toppingTomato());
-        p.addTopping(toppingCheese());
+        //p.addTopping(toppingTomato());
+        //p.addTopping(toppingCheese());
         return p;
     }
 
     @Bean(name = "pizza_salami")
     public Pizza pizzaSalamiBean() {
         Pizza p = new Pizza(1160, 5.99, "Salami Pizza");
-        p.addTopping(toppingTomato());
-        p.addTopping(toppingCheese());
-        p.addTopping(toppingSalami());
+        //p.addTopping(toppingTomato());
+        //p.addTopping(toppingCheese());
+        //p.addTopping(toppingSalami());
         return p;
     }
 
@@ -75,9 +73,16 @@ public class MenuConfig {
         return new Table(2, 6, true);
     }
 
-    @Bean(name = "order1")
+    @Bean(name = "tavolo3")
+    public Table getTavolo3() {
+        return new Table(3, 2, true);
+    }
+
+    @Bean(name = "order")
     @Scope("prototype")
     public Order getOrder1() {
         return new Order();
     }
+
+
 }

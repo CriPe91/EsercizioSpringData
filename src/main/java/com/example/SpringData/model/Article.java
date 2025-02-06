@@ -2,29 +2,33 @@ package com.example.SpringData.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Entity
-@Table(name = "articles")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Articoli",discriminatorType = DiscriminatorType.STRING)
+import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class Article {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_prodotto")
+@Table(name = "prodotti")
+public abstract class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    protected long id;
     protected int calories;
     protected double price;
+
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    protected Menu menu;
 
     public Article(int calories, double price) {
         this.calories = calories;
         this.price = price;
     }
-
-
 }
-

@@ -1,23 +1,41 @@
 package com.example.SpringData.model;
 
 
+
 import com.example.SpringData.Enumeration.Stato;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Data
+@Entity
+@jakarta.persistence.Table(name = "ordini")
 public class Order {
 
+    @Id
+    @GeneratedValue
+    private long id;
     private static int count = 1;
     private int numeroOrdine;
+    @Enumerated(EnumType.STRING)
     private Stato stato;
     private int numCoperti;
     private LocalTime oraAcquisizione;
+    @ManyToMany
+    @JoinTable(
+            name = "ordini_prodotti",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Article> listaProdotti;
+    @ManyToOne
     private Table tavolo;
     @Value("${menu.coperto}")
     private double costoCoperto;

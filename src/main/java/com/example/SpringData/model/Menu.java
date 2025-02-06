@@ -1,26 +1,28 @@
 package com.example.SpringData.model;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "menu")
 public class Menu {
 
-    //private List<Pizza> pizzaList;
-    //private List<Drink> drinkList;
-    //private List<Topping> toppingList;
+    @Id
+    @GeneratedValue
+    private long id;
+    private String nome;
 
-    private List<Article> menuList;
-
-    public Menu() {
-        //this.pizzaList = new ArrayList<Pizza>();
-        //this.drinkList = new ArrayList<Drink>();
-        //this.toppingList = new ArrayList<Topping>();
-        this.menuList = new ArrayList<Article>();
-    }
-
-    public List<Article> getMenuList() {
-        return menuList;
-    }
+    @OneToMany(mappedBy = "menu")
+    private List<Article> menuList = new ArrayList<Article>();
 
     public void printMenu() {
         System.out.println("---------- Menu --------");
